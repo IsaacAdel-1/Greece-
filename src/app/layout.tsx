@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/site";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FooterGate } from "@/components/layout/FooterGate";
+import { PageTracker } from "@/components/analytics/PageTracker";
 import { organizationJsonLd } from "@/lib/seo";
 
 // Serif for display, humanist sans for body — a restrained luxury pairing.
@@ -69,6 +70,7 @@ export default function RootLayout({
         <FooterGate>
           <Footer />
         </FooterGate>
+        <PageTracker />
       </body>
     </html>
   );

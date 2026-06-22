@@ -6,7 +6,7 @@ import { Logo } from "@/components/layout/Logo";
 
 /** Site footer: brand line, navigation, contact, and legal row. */
 export function Footer() {
-  const { contact, social, nav, legalName, tagline } = siteConfig;
+  const { contact, social, nav, name, tagline } = siteConfig;
   const year = new Date().getFullYear();
 
   return (
@@ -14,13 +14,15 @@ export function Footer() {
       {/* Founder signature */}
       <div className="border-b border-sand">
         <Container className="flex flex-col items-center gap-6 py-12 text-center sm:flex-row sm:gap-8 sm:text-left">
-          <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full bg-sand">
+          <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full bg-sand sm:h-32 sm:w-32">
             <Image
               src="/images/about/founder.jpg"
               alt="Portrait of the founder of Grees&"
               fill
-              sizes="96px"
-              className="object-cover"
+              sizes="128px"
+              // Frame from the top so the whole face stays in the circle rather
+              // than being cropped through the middle.
+              className="object-cover object-top"
             />
           </div>
           <div>
@@ -115,7 +117,7 @@ export function Footer() {
       <div className="border-t border-sand">
         <Container className="flex flex-col items-center justify-between gap-2 py-6 text-clay md:flex-row">
           <p className="font-sans text-xs">
-            © {year} {legalName}. All rights reserved.
+            © {year} {name}. All rights reserved.
           </p>
           <p className="font-sans text-xs">Crafted in {contact.address.city}.</p>
         </Container>

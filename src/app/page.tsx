@@ -9,6 +9,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { CategoryCard } from "@/components/catalog/CategoryCard";
 import { ProductCard } from "@/components/catalog/ProductCard";
 import { Hero } from "@/components/home/Hero";
+import { Services } from "@/components/home/Services";
 import { AboutTeaser } from "@/components/home/AboutTeaser";
 import { ContactTeaser } from "@/components/home/ContactTeaser";
 import { DeliveredWork } from "@/components/work/DeliveredWork";
@@ -25,7 +26,7 @@ export default async function HomePage() {
       <Hero />
 
       {/* Categories */}
-      <Container as="section" className="py-24">
+      <Container as="section" id="collections" className="scroll-mt-24 py-24">
         <Reveal>
           <SectionHeading
             eyebrow="Collections"
@@ -69,6 +70,9 @@ export default async function HomePage() {
 
       {/* Real delivered projects */}
       <DeliveredWork id="work" />
+
+      {/* What we do beyond finished pieces */}
+      <Services />
 
       <AboutTeaser />
       <ContactTeaser />

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "outline" | "ghost";
+type Variant = "primary" | "outline" | "outline-light" | "ghost";
 type Size = "sm" | "md";
 
 const base =
@@ -10,6 +10,10 @@ const base =
 const variants: Record<Variant, string> = {
   primary: "bg-ink text-bone hover:bg-brass",
   outline: "border border-ink text-ink hover:bg-ink hover:text-bone",
+  // For dark backgrounds: a bone outline that fills on hover. Its own variant
+  // (rather than overriding `outline` via className) avoids Tailwind class
+  // conflicts that could resolve to dark-on-dark and hide the button.
+  "outline-light": "border border-bone text-bone hover:bg-bone hover:text-ink",
   ghost: "text-ink hover:text-brass",
 };
 

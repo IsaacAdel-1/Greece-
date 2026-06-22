@@ -44,6 +44,17 @@ const securityHeaders = [
   },
 ];
 
+// Derive the Supabase Storage hostname from the env URL so next/image is
+// allowed to optimize uploaded product photos. Absent in local dev → skipped.
+let supabaseHost: string | undefined;
+try {
+  if (process.env.SUPABASE_URL) {
+    supabaseHost = new URL(process.env.SUPABASE_URL).hostname;
+  }
+} catch {
+  supabaseHost = undefined;
+}
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
@@ -51,6 +62,9 @@ const nextConfig: NextConfig = {
     // Allow remote imagery hosts here when you move off /public.
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
+      ...(supabaseHost
+        ? [{ protocol: "https" as const, hostname: supabaseHost }]
+        : []),
     ],
     formats: ["image/avif", "image/webp"],
   },

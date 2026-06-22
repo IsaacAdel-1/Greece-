@@ -5,7 +5,7 @@ import { Reveal } from "@/components/motion/Reveal";
 /** Dark, quiet call-to-contact band near the foot of the home page. */
 export function ContactTeaser() {
   return (
-    <section className="bg-ink py-24 text-bone">
+    <section id="contact" className="scroll-mt-24 bg-ink py-24 text-bone">
       <Container>
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="font-sans text-xs uppercase tracking-luxe text-brass">
@@ -19,11 +19,7 @@ export function ContactTeaser() {
             bespoke options. Reach out and we will respond personally.
           </p>
           <div className="mt-10">
-            <Button
-              href="/contact"
-              variant="outline"
-              className="border-bone text-bone hover:bg-bone hover:text-ink"
-            >
+            <Button href="/contact" variant="outline-light">
               Make an Inquiry
             </Button>
           </div>

@@ -19,7 +19,7 @@ export const siteConfig = {
     "Handcrafted furniture made for the moments that matter — gathering, resting, growing together. Timeless pieces for the living room, bedroom and dining room, built to be part of your family's story for years to come.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.minasalama.com",
   locale: "en",
-  ogImage: "/images/living-room/walnut-coffee-table.jpg",
+  ogImage: "/images/living-room/halston-sectional-1.webp",
 
   contact: {
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@minasalama.com",
@@ -43,13 +43,17 @@ export const siteConfig = {
     pinterest: "https://pinterest.com/",
   },
 
-  /** Primary navigation shared by header and footer. */
+  /**
+   * Primary navigation shared by header and footer. Most items are sections on
+   * the home page (anchor links); only About is its own route. The full
+   * Collections and Contact pages remain reachable via in-section buttons.
+   */
   nav: [
     { label: "Home", href: "/" },
-    { label: "Collections", href: "/categories" },
+    { label: "Collections", href: "/#collections" },
     { label: "Projects", href: "/#work" },
     { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { label: "Contact", href: "/#contact" },
   ],
 } as const;
 

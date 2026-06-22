@@ -6,7 +6,6 @@ import { PageHeader } from "@/components/catalog/PageHeader";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
-import { DeliveredWork } from "@/components/work/DeliveredWork";
 
 export const metadata: Metadata = buildMetadata({
   title: "About",
@@ -66,8 +65,8 @@ export default function AboutPage() {
           <Reveal delay={200} className="hidden lg:block">
             <div className="relative aspect-[4/5] overflow-hidden bg-sand lg:sticky lg:top-28">
               <Image
-                src="/images/bedroom/cloud-bed-1.jpg"
-                alt="A serene bedroom with a cream upholstered platform bed"
+                src="/images/bedroom/hugo-bed-1.webp"
+                alt="A beige upholstered bed with a soft, gently curved headboard"
                 fill
                 sizes="20rem"
                 className="object-cover"
@@ -76,11 +75,6 @@ export default function AboutPage() {
           </Reveal>
         </div>
       </Container>
-
-      {/* Delivered work */}
-      <div className="bg-sand/30">
-        <DeliveredWork />
-      </div>
 
       {/* CTA */}
       <Container className="py-24 text-center">

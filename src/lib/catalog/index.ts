@@ -17,16 +17,12 @@ export {
   getFeaturedProducts,
   getNewProducts,
   getActiveSubcategories,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  type WriteResult,
 } from "./repository";
 
-import type { Dimensions, Product } from "./types";
-
-/** Format dimensions as "W × D × H cm" for display. */
-export function formatDimensions(d: Dimensions): string {
-  return `${d.width} × ${d.depth} × ${d.height} ${d.unit}`;
-}
-
-/** The cover image of a product (first image), used by cards and OG tags. */
-export function getCoverImage(product: Product) {
-  return product.images[0];
-}
+// Pure, client-safe helpers live in ./format so they can be imported without
+// pulling the server-only repository into a client bundle.
+export { formatDimensions, getCoverImage } from "./format";

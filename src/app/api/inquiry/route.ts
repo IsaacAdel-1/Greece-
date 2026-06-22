@@ -1,6 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { validateInquiry } from "@/lib/validation/inquiry";
 import { rateLimit } from "@/lib/rate-limit";
+import { clientIp, getGeo } from "@/lib/http";
+import { parseUserAgent } from "@/lib/analytics/ua";
+import { inferGender } from "@/lib/gender/infer";
+import { saveInquiry } from "@/lib/inquiries/repository";
 
 /**
  * Inquiry submission endpoint.
@@ -18,12 +22,6 @@ import { rateLimit } from "@/lib/rate-limit";
  */
 
 export const runtime = "nodejs";
-
-function clientIp(req: NextRequest): string {
-  const forwarded = req.headers.get("x-forwarded-for");
-  if (forwarded) return forwarded.split(",")[0]!.trim();
-  return req.headers.get("x-real-ip") ?? "unknown";
-}
 
 export async function POST(req: NextRequest) {
   // 1. Rate limit: 5 inquiries per minute per IP.
@@ -74,10 +72,38 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { name, email, message, productSlug } = result.data;
+  const { name, email, message, productSlug, gender } = result.data;
+
+  // Derive context server-side from trusted signals (never client-supplied).
+  const geo = getGeo(req);
+  const { device, browser } = parseUserAgent(req.headers.get("user-agent"));
+
+  // Gender: prefer the visitor's own declaration; keep a name-based guess as a
+  // clearly-labelled fallback for leads who didn't declare one.
+  const declared =
+    gender === "male" || gender === "female" || gender === "unspecified"
+      ? gender
+      : null;
+  const guess = inferGender(name);
+
+  // --- Persist ---
+  await saveInquiry({
+    name,
+    email,
+    message,
+    productSlug: productSlug || null,
+    gender: declared,
+    genderGuess: guess.gender,
+    genderConfidence: guess.confidence,
+    country: geo.country,
+    city: geo.city,
+    referrer: null, // external referrer isn't reliably available on this POST
+    device,
+    browser,
+  });
 
   // --- Delivery (pluggable) ---
-  // In production, send via your transactional email provider here, e.g.:
+  // In production, also send via your transactional email provider here, e.g.:
   //   await sendEmail({ to: process.env.INQUIRY_NOTIFY_EMAIL, ... })
   // Keys come from the environment; nothing is hardcoded.
   if (process.env.NODE_ENV !== "production") {

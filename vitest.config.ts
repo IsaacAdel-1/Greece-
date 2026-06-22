@@ -25,6 +25,14 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+      // `server-only`/`client-only` throw when resolved under jsdom; stub them
+      // so server modules can be unit-tested directly.
+      "server-only": fileURLToPath(
+        new URL("./test/empty-module.ts", import.meta.url),
+      ),
+      "client-only": fileURLToPath(
+        new URL("./test/empty-module.ts", import.meta.url),
+      ),
     },
   },
 });

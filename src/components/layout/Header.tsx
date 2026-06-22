@@ -16,6 +16,10 @@ export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  // Which home-page section is currently in view, so the matching nav item
+  // lights up as you scroll or click an anchor. "" = top of page (Home).
+  // Only meaningful on the home page; cleared on every other route.
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -23,6 +27,35 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Scroll-spy for the home page's anchored sections (order matters: top→bottom).
+  useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
+    const ids = ["collections", "work", "contact"];
+    const onScroll = () => {
+      // A probe line a third of the way down the viewport. The last section
+      // whose top has passed it is the one we consider "current".
+      const probe = window.scrollY + window.innerHeight * 0.35;
+      let current = "";
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        if (top <= probe) current = id;
+      }
+      setActiveSection(current);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pathname]);
 
   // Close the mobile menu whenever the route changes.
   useEffect(() => {
@@ -37,8 +70,19 @@ export function Header() {
     };
   }, [menuOpen]);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const isActive = (href: string) => {
+    // On the home page, highlighting follows the section in view, never the URL.
+    if (pathname === "/") {
+      if (href.includes("#")) return activeSection === href.split("#")[1];
+      if (href === "/") return activeSection === ""; // top of page
+      return false; // links to other routes (e.g. About) aren't active here
+    }
+    // On any other route, only a real page link can be active — section anchors
+    // and Home never are. This stops About/Contact from "sticking" once you
+    // navigate away.
+    if (href === "/" || href.includes("#")) return false;
+    return pathname.startsWith(href);
+  };
 
   // The header is only transparent over a *dark* hero on the home page. On every
   // other page the top of the page is the light bone background, so the header
@@ -59,40 +103,75 @@ export function Header() {
       )}
     >
       <Container className="flex h-20 items-center justify-between">
-        <Link href="/" aria-label={`${siteConfig.name} — home`}>
+        <Link
+          href="/"
+          aria-label={`${siteConfig.name} — home`}
+          className={cn(
+            overHero && "drop-shadow-[0_1px_4px_rgba(26,24,21,0.55)]",
+          )}
+        >
           {/* Light wordmark only while transparent over the dark home hero;
-              dark everywhere else so it stays legible on the bone background. */}
-          <Logo light={overHero} />
+              navy everywhere else (incl. once scrolled) so it stays legible on
+              the bone background. The "Furniture Solution" line is kept to the
+              footer to keep the header clean. */}
+          <Logo light={overHero} tagline={false} />
         </Link>
 
         {/* Desktop nav */}
-        <nav aria-label="Primary" className="hidden md:block">
+        <nav
+          aria-label="Primary"
+          className={cn(
+            "hidden md:block",
+            // Lift the links off busy hero imagery so they stay vibrant.
+            overHero && "drop-shadow-[0_1px_4px_rgba(26,24,21,0.55)]",
+          )}
+        >
           <ul className="flex items-center gap-10">
-            {siteConfig.nav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                  className={cn(
-                    "font-sans text-xs uppercase tracking-luxe transition-colors duration-300 hover:text-brass",
-                    isActive(item.href)
-                      ? "text-brass"
-                      : overHero
-                        ? "text-bone"
-                        : "text-ink",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {siteConfig.nav.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "group relative inline-block py-1 font-sans text-xs uppercase tracking-luxe transition-colors duration-300",
+                      active
+                        ? overHero
+                          ? "text-bone"
+                          : "text-brass"
+                        : overHero
+                          ? "text-bone/80 hover:text-bone"
+                          : "text-ink hover:text-brass",
+                    )}
+                  >
+                    {item.label}
+                    {/* Brass underline: solid for the current page, sliding in
+                        on hover — a clear, vibrant active indicator on both the
+                        transparent and scrolled header. */}
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "absolute -bottom-0.5 left-0 h-0.5 w-full origin-left bg-brass transition-transform duration-300 ease-luxe",
+                        active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
+                      )}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
         {/* Mobile toggle */}
         <button
           type="button"
-          className={cn("md:hidden p-2", overHero ? "text-bone" : "text-ink")}
+          className={cn(
+            "md:hidden p-2",
+            overHero
+              ? "text-bone drop-shadow-[0_1px_4px_rgba(26,24,21,0.55)]"
+              : "text-ink",
+          )}
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           aria-label={menuOpen ? "Close menu" : "Open menu"}

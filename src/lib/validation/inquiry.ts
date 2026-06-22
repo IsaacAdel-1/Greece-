@@ -21,6 +21,8 @@ export const inquirySchema = z.object({
     .max(254, "Email is too long."),
   // Optional — visitors may inquire about a specific piece.
   productSlug: z.string().trim().max(120).optional().or(z.literal("")),
+  // Optional self-declared gender. Empty string = "preferred not to say".
+  gender: z.enum(["male", "female", "unspecified"]).optional().or(z.literal("")),
   message: z
     .string()
     .trim()

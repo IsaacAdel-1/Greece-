@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Product } from "@/lib/catalog";
-import { getCoverImage } from "@/lib/catalog";
+import type { Product } from "@/lib/catalog/types";
+import { getCoverImage } from "@/lib/catalog/format";
 
 interface ProductCardProps {
   product: Product;

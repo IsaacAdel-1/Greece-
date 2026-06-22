@@ -122,6 +122,25 @@ export function ContactForm() {
         required
       />
 
+      <div>
+        <label
+          htmlFor="gender"
+          className="block font-sans text-xs uppercase tracking-luxe text-ink"
+        >
+          Gender <span className="text-clay">(optional)</span>
+        </label>
+        <select
+          id="gender"
+          name="gender"
+          defaultValue=""
+          className="mt-2 block w-full border border-sand bg-transparent px-4 py-3 font-sans text-base text-ink outline-none transition-colors focus:border-brass"
+        >
+          <option value="">Prefer not to say</option>
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+        </select>
+      </div>
+
       {/* Carry the piece of interest through; read-only context if present. */}
       <input type="hidden" name="productSlug" defaultValue={piece} />
       {piece && (

@@ -16,19 +16,17 @@ export const categories: Category[] = [
     name: "Living Room",
     tagline: "Where the day softens",
     description:
-      "Sofas, armchairs, tables and media pieces conceived as the quiet centre of a home — generous proportions, honest materials, and lines that age gracefully.",
+      "Sofas and sectionals conceived as the quiet centre of a home — generous proportions, soft tactile fabrics, and lines that age gracefully.",
     cover: {
-      src: "/images/living-room/walnut-coffee-table.jpg",
-      alt: "A warm living room with a solid walnut coffee table and a linen sofa",
-      width: 736,
-      height: 981,
+      src: "/images/living-room/halston-sectional-1.webp",
+      alt: "A cream L-shaped sectional styled in a bright, panelled living room",
+      width: 600,
+      height: 450,
     },
     order: 1,
     subcategories: [
       { slug: "sofas", name: "Sofas" },
-      { slug: "armchairs", name: "Armchairs" },
-      { slug: "coffee-tables", name: "Coffee Tables" },
-      { slug: "tv-units", name: "TV Units" },
+      { slug: "sectionals", name: "Sectionals" },
     ],
   },
   {
@@ -38,27 +36,12 @@ export const categories: Category[] = [
     description:
       "Upholstered beds designed for rest — wrapped headboards, soft tactile fabrics, and frames built to anchor a room without crowding it.",
     cover: {
-      src: "/images/bedroom/cloud-bed-1.jpg",
-      alt: "A serene bedroom with a cream upholstered platform bed",
-      width: 736,
-      height: 736,
+      src: "/images/bedroom/hugo-bed-1.webp",
+      alt: "A beige upholstered bed with a soft, gently curved headboard",
+      width: 1800,
+      height: 900,
     },
     order: 2,
     subcategories: [{ slug: "beds", name: "Beds" }],
-  },
-  {
-    slug: "dining",
-    name: "Dining",
-    tagline: "Gathering, elevated",
-    description:
-      "Tables built for long evenings — solid hardwood tops, hand-finished surfaces, and proportions that invite everyone to stay a while longer.",
-    cover: {
-      src: "/images/dining/oak-dining-table.jpg",
-      alt: "A solid oak dining table set with upholstered chairs",
-      width: 600,
-      height: 800,
-    },
-    order: 3,
-    subcategories: [{ slug: "dining-tables", name: "Dining Tables" }],
   },
 ];

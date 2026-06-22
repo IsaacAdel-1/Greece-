@@ -33,8 +33,8 @@ describe("catalog repository", () => {
   });
 
   it("looks up a product by slug and returns null when missing", async () => {
-    const product = await getProductBySlug("belgrave-sofa");
-    expect(product?.name).toBe("Belgrave 3-Seater Sofa");
+    const product = await getProductBySlug("cloud-sofa");
+    expect(product?.name).toBe("Cloud 3-Seater Sofa");
     expect(await getProductBySlug("nope")).toBeNull();
   });
 
@@ -90,7 +90,7 @@ describe("catalog formatting helpers", () => {
   });
 
   it("returns the first image as the cover", async () => {
-    const product = await getProductBySlug("belgrave-sofa");
+    const product = await getProductBySlug("cloud-sofa");
     expect(product).not.toBeNull();
     expect(getCoverImage(product!)).toBe(product!.images[0]);
   });

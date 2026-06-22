@@ -25,6 +25,10 @@ export function Hero() {
           buttons stay legible regardless of how light the photo is. */}
       <div className="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/35 to-ink/5" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink/30 to-transparent" />
+      {/* Top scrim across the full width so the transparent header's white
+          wordmark and nav links stay readable even over the bright right side
+          of the photo. */}
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink/55 to-transparent" />
 
       <div className="absolute inset-0 flex items-center">
         <div className="mx-auto w-full max-w-content px-6 md:px-10">
@@ -44,8 +48,8 @@ export function Hero() {
               </Button>
               <Button
                 href="/about"
-                variant="outline"
-                className="border-bone/80 bg-ink/20 text-bone backdrop-blur-sm hover:bg-bone hover:text-ink"
+                variant="outline-light"
+                className="bg-ink/20 backdrop-blur-sm"
               >
                 Our Craft
               </Button>

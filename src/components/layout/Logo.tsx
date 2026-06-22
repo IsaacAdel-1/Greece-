@@ -11,9 +11,12 @@ import { cn } from "@/lib/utils";
 export function Logo({
   className,
   light = false,
+  tagline = true,
 }: {
   className?: string;
   light?: boolean;
+  /** Show the "Furniture Solution" line under the wordmark. */
+  tagline?: boolean;
 }) {
   return (
     <span className={cn("inline-flex flex-col leading-none", className)}>
@@ -21,14 +24,16 @@ export function Logo({
         <span className={light ? "text-bone" : "text-navy"}>Grees</span>
         <span className="ml-0.5 text-brass">&amp;</span>
       </span>
-      <span
-        className={cn(
-          "mt-1 font-sans text-[0.6rem] uppercase tracking-luxe",
-          light ? "text-bone/80" : "text-clay",
-        )}
-      >
-        Furniture Solution
-      </span>
+      {tagline && (
+        <span
+          className={cn(
+            "mt-1 font-sans text-[0.6rem] uppercase tracking-luxe",
+            light ? "text-bone/80" : "text-clay",
+          )}
+        >
+          Furniture Solution
+        </span>
+      )}
     </span>
   );
 }
