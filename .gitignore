@@ -13,4 +13,4 @@ next-env.d.ts
 
 # Raw / source image library — heavy assets not used by the site.
 # The site only uses optimized images under /public/images.
-Images/
+/Images/
