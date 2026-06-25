@@ -23,14 +23,15 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
         href={`/products/${product.slug}`}
         className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass"
       >
-        <div className="relative aspect-[4/5] overflow-hidden bg-sand">
+        <div className="relative aspect-[4/3] overflow-hidden bg-bone">
           <Image
             src={cover.src}
             alt={cover.alt}
             fill
+            quality={90}
             sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
             priority={priority}
-            className="object-cover transition-transform duration-700 ease-luxe group-hover:scale-105"
+            className="object-contain transition-transform duration-700 ease-luxe group-hover:scale-105"
           />
           {product.isNew && (
             <span className="absolute left-4 top-4 bg-bone/90 px-3 py-1 font-sans text-[10px] uppercase tracking-luxe text-ink">

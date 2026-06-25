@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { revalidatePath } from "next/cache";
 import { isSameOrigin } from "@/lib/http";
 import { validateProduct } from "@/lib/validation/product";
 import { createProduct } from "@/lib/catalog";
@@ -33,5 +34,13 @@ export async function POST(req: NextRequest) {
   if (!write.ok) {
     return NextResponse.json({ ok: false, error: write.error }, { status: 400 });
   }
+
+  // Invalidate the static public pages that list/show this product so the new
+  // item appears without a rebuild. Runs only after the write succeeded.
+  revalidatePath("/");
+  revalidatePath("/categories");
+  revalidatePath(`/categories/${result.data.categorySlug}`);
+  revalidatePath(`/products/${result.data.slug}`);
+
   return NextResponse.json({ ok: true, slug: result.data.slug });
 }

@@ -14,6 +14,10 @@ import { AboutTeaser } from "@/components/home/AboutTeaser";
 import { ContactTeaser } from "@/components/home/ContactTeaser";
 import { DeliveredWork } from "@/components/work/DeliveredWork";
 
+// Safety net: regenerate at most every 5 minutes even if a path-level
+// revalidation is ever missed. On-demand revalidatePath keeps it instant.
+export const revalidate = 300;
+
 export default async function HomePage() {
   // Fetch in parallel — both go through the catalog seam.
   const [categories, featured] = await Promise.all([
@@ -25,14 +29,13 @@ export default async function HomePage() {
     <>
       <Hero />
 
+      {/* What we do beyond finished pieces — second section, right after the hero */}
+      <Services />
+
       {/* Categories */}
       <Container as="section" id="collections" className="scroll-mt-24 py-24">
         <Reveal>
-          <SectionHeading
-            eyebrow="Collections"
-            title="Explore by room"
-            description="Each collection is composed for a particular kind of living — pieces that belong together, and apart."
-          />
+          <SectionHeading eyebrow="Collections" title="Explore by room" />
         </Reveal>
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((category, i) => (
@@ -52,11 +55,7 @@ export default async function HomePage() {
       <div className="bg-sand/30">
         <Container as="section" className="py-24">
           <Reveal>
-            <SectionHeading
-              eyebrow="Featured"
-              title="Pieces of the season"
-              description="A small selection from across the collections — each made in limited batches."
-            />
+            <SectionHeading eyebrow="Featured" title="Pieces of the season" />
           </Reveal>
           <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((product, i) => (
@@ -68,11 +67,8 @@ export default async function HomePage() {
         </Container>
       </div>
 
-      {/* Real delivered projects */}
+      {/* Real delivered projects, by location */}
       <DeliveredWork id="work" />
-
-      {/* What we do beyond finished pieces */}
-      <Services />
 
       <AboutTeaser />
       <ContactTeaser />

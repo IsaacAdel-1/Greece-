@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { revalidatePath } from "next/cache";
 import { isSameOrigin } from "@/lib/http";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 import { products as seedProducts } from "@/data/products";
@@ -46,5 +47,10 @@ export async function POST(req: NextRequest) {
   if (error) {
     return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
   }
+
+  // New catalogue is live — refresh the public listings.
+  revalidatePath("/");
+  revalidatePath("/categories");
+
   return NextResponse.json({ ok: true, imported: rows.length });
 }

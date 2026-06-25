@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { buildMetadata } from "@/lib/seo";
 import { Container } from "@/components/ui/Container";
-import { PageHeader } from "@/components/catalog/PageHeader";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -17,18 +15,9 @@ export const metadata: Metadata = buildMetadata({
 export default function AboutPage() {
   return (
     <>
-      <PageHeader
-        eyebrow="About"
-        title="Furniture built around how you actually live"
-        description="Grees& exists to take the uncertainty out of furnishing a home — with clarity before production, and quality through to delivery."
-      />
-
-      {/* Story */}
-      <Container className="py-16 md:py-24">
-        <Reveal>
-          <SectionHeading eyebrow="Story" title="Why Grees& exists" />
-        </Reveal>
-        <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_20rem] lg:gap-16">
+      {/* Story — top padding clears the fixed header now the page header is gone. */}
+      <Container className="pb-16 pt-36 md:pb-24 md:pt-44">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_20rem] lg:gap-16">
           <Reveal delay={120}>
             <div className="max-w-3xl space-y-5 font-sans text-lg leading-relaxed text-clay">
               <p>
@@ -65,8 +54,8 @@ export default function AboutPage() {
           <Reveal delay={200} className="hidden lg:block">
             <div className="relative aspect-[4/5] overflow-hidden bg-sand lg:sticky lg:top-28">
               <Image
-                src="/images/bedroom/hugo-bed-1.webp"
-                alt="A beige upholstered bed with a soft, gently curved headboard"
+                src="/images/beds/haven-1.webp"
+                alt="A low taupe upholstered bed with a soft wrapped headboard"
                 fill
                 sizes="20rem"
                 className="object-cover"

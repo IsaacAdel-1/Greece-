@@ -7,8 +7,8 @@
  * the site still renders during local development without a .env file.
  */
 
-const phone = process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+20 100 000 0000";
-const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "201000000000";
+const phone = process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+20 155 533 2354";
+const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "201555332354";
 
 export const siteConfig = {
   name: "Grees",
@@ -19,10 +19,10 @@ export const siteConfig = {
     "Handcrafted furniture made for the moments that matter — gathering, resting, growing together. Timeless pieces for the living room, bedroom and dining room, built to be part of your family's story for years to come.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.minasalama.com",
   locale: "en",
-  ogImage: "/images/living-room/halston-sectional-1.webp",
+  ogImage: "/images/sofas/cloud-1.webp",
 
   contact: {
-    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@minasalama.com",
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "minasalama123@gmail.com",
     phone,
     /** WhatsApp deep link (digits only, no +). */
     whatsapp: `https://wa.me/${whatsappNumber}`,

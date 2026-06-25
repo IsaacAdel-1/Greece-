@@ -12,15 +12,23 @@ export function Logo({
   className,
   light = false,
   tagline = true,
+  size = "md",
 }: {
   className?: string;
   light?: boolean;
   /** Show the "Furniture Solution" line under the wordmark. */
   tagline?: boolean;
+  /** Wordmark size. "lg" is ~1.5× for the header. */
+  size?: "md" | "lg";
 }) {
   return (
     <span className={cn("inline-flex flex-col leading-none", className)}>
-      <span className="flex items-baseline font-serif text-2xl tracking-tight">
+      <span
+        className={cn(
+          "flex items-baseline font-serif tracking-tight",
+          size === "lg" ? "text-3xl md:text-4xl" : "text-2xl",
+        )}
+      >
         <span className={light ? "text-bone" : "text-navy"}>Grees</span>
         <span className="ml-0.5 text-brass">&amp;</span>
       </span>

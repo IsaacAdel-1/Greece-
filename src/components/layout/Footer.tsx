@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { Container } from "@/components/ui/Container";
@@ -11,38 +10,9 @@ export function Footer() {
 
   return (
     <footer className="mt-24 border-t border-sand bg-bone">
-      {/* Founder signature */}
-      <div className="border-b border-sand">
-        <Container className="flex flex-col items-center gap-6 py-12 text-center sm:flex-row sm:gap-8 sm:text-left">
-          <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full bg-sand sm:h-32 sm:w-32">
-            <Image
-              src="/images/about/founder.jpg"
-              alt="Portrait of the founder of Grees&"
-              fill
-              sizes="128px"
-              // Frame from the top so the whole face stays in the circle rather
-              // than being cropped through the middle.
-              className="object-cover object-top"
-            />
-          </div>
-          <div>
-            <p className="font-sans text-xs uppercase tracking-luxe text-brass">
-              Founder
-            </p>
-            <p className="mt-1 font-serif text-xl font-light text-ink">
-              Engineer. Creator. Problem Solver.
-            </p>
-            <p className="mt-1 font-sans text-sm leading-relaxed text-clay">
-              Building spaces, furniture, and ideas that make everyday life
-              better.
-            </p>
-          </div>
-        </Container>
-      </div>
-
       <Container className="grid grid-cols-1 gap-12 py-16 md:grid-cols-3">
         <div>
-          <Logo />
+          <Logo tagline={false} />
           <p className="mt-4 max-w-xs font-sans text-base leading-relaxed text-clay">
             {tagline}.
           </p>

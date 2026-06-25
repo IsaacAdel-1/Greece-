@@ -17,16 +17,17 @@ export function CategoryCard({ category, priority = false }: CategoryCardProps) 
       href={`/categories/${category.slug}`}
       className="group relative block overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass"
     >
-      <div className="relative aspect-[3/4] bg-sand">
+      <div className="relative aspect-[4/3] bg-bone">
         <Image
           src={category.cover.src}
           alt={category.cover.alt}
           fill
+          quality={90}
           sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
           priority={priority}
-          className="object-cover transition-transform duration-700 ease-luxe group-hover:scale-105"
+          className="object-contain transition-transform duration-700 ease-luxe group-hover:scale-105"
         />
-        {/* Gradient scrim keeps the overlaid text readable on any image. */}
+        {/* Gradient scrim keeps the overlaid text readable over the image. */}
         <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
       </div>
 

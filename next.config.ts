@@ -67,6 +67,9 @@ const nextConfig: NextConfig = {
         : []),
     ],
     formats: ["image/avif", "image/webp"],
+    // Allow a higher display quality for the product/category renders so the
+    // optimizer never visibly degrades them (75 is the default).
+    qualities: [75, 90, 95],
   },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];

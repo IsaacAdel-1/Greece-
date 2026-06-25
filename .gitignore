@@ -11,6 +11,8 @@
 *.tsbuildinfo
 next-env.d.ts
 
-# Raw / source image library — heavy assets not used by the site.
-# The site only uses optimized images under /public/images.
+# Raw / source image libraries — heavy assets NOT used by the site at runtime.
+# The site only references optimized copies under /public/images.
 /Images/
+/public/Collection/
+/public/New Images/

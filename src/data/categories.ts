@@ -8,40 +8,67 @@ import type { Category } from "@/lib/catalog/types";
  * `categorySlug`. Keep slugs lowercase and hyphenated.
  *
  * Images are served from /public/images (local, optimized by next/image).
- * Covers reuse a strong styled scene from within each category.
+ * Covers reuse a strong scene from within each category.
  */
 export const categories: Category[] = [
+  {
+    slug: "sofas",
+    name: "Sofas",
+    tagline: "The heart of the room",
+    description:
+      "Deep, tactile seating made for everyday life — from feather-soft three-seaters to clean contemporary lines.",
+    cover: {
+      src: "/images/sofas/cloud-1.webp",
+      alt: "A deep, feather-soft cream three-seater sofa",
+      width: 1600,
+      height: 1600,
+    },
+    order: 1,
+    subcategories: [{ slug: "sofas", name: "Sofas" }],
+  },
   {
     slug: "living-room",
     name: "Living Room",
     tagline: "Where the day softens",
     description:
-      "Sofas and sectionals conceived as the quiet centre of a home — generous proportions, soft tactile fabrics, and lines that age gracefully.",
+      "Sectionals conceived as the quiet centre of a home — generous proportions, soft fabrics, and configurations that wrap a space.",
     cover: {
-      src: "/images/living-room/halston-sectional-1.webp",
-      alt: "A cream L-shaped sectional styled in a bright, panelled living room",
-      width: 600,
-      height: 450,
+      src: "/images/sectionals/cascade-1.webp",
+      alt: "A soft, angled modular sectional in off-white linen",
+      width: 1600,
+      height: 1600,
     },
-    order: 1,
-    subcategories: [
-      { slug: "sofas", name: "Sofas" },
-      { slug: "sectionals", name: "Sectionals" },
-    ],
+    order: 2,
+    subcategories: [{ slug: "sectionals", name: "Sectionals" }],
   },
   {
     slug: "bedroom",
     name: "Bedroom",
     tagline: "Stillness, made tangible",
     description:
-      "Upholstered beds designed for rest — wrapped headboards, soft tactile fabrics, and frames built to anchor a room without crowding it.",
+      "Upholstered beds designed for rest — wrapped headboards, soft tactile fabrics, and frames built to anchor a room, with optional lift-up storage.",
     cover: {
-      src: "/images/bedroom/hugo-bed-1.webp",
-      alt: "A beige upholstered bed with a soft, gently curved headboard",
-      width: 1800,
-      height: 900,
+      src: "/images/beds/haven-1.webp",
+      alt: "A low taupe upholstered bed with a soft wrapped headboard",
+      width: 1600,
+      height: 1600,
     },
-    order: 2,
+    order: 3,
     subcategories: [{ slug: "beds", name: "Beds" }],
+  },
+  {
+    slug: "tv-units",
+    name: "TV Units",
+    tagline: "Grounded and grain-forward",
+    description:
+      "Long, low media consoles in solid wood veneers — handleless storage that sits quietly beneath the screen.",
+    cover: {
+      src: "/images/tv-units/day-natural-oak.webp",
+      alt: "A long, low media console in natural oak",
+      width: 1800,
+      height: 700,
+    },
+    order: 4,
+    subcategories: [{ slug: "tv-units", name: "TV Units" }],
   },
 ];

@@ -114,7 +114,7 @@ export function Header() {
               navy everywhere else (incl. once scrolled) so it stays legible on
               the bone background. The "Furniture Solution" line is kept to the
               footer to keep the header clean. */}
-          <Logo light={overHero} tagline={false} />
+          <Logo light={overHero} tagline={false} size="lg" />
         </Link>
 
         {/* Desktop nav */}

@@ -1,7 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { revalidatePath } from "next/cache";
 import { isSameOrigin } from "@/lib/http";
 import { validateProduct } from "@/lib/validation/product";
-import { deleteProduct, updateProduct } from "@/lib/catalog";
+import { deleteProduct, getProductBySlug, updateProduct } from "@/lib/catalog";
 
 /** Update / delete a single product, keyed by its (original) slug. */
 export const runtime = "nodejs";
@@ -41,6 +42,15 @@ export async function PATCH(
   if (!write.ok) {
     return NextResponse.json({ ok: false, error: write.error }, { status: 400 });
   }
+
+  // Refresh the affected public pages after a successful update.
+  revalidatePath("/");
+  revalidatePath("/categories");
+  revalidatePath(`/categories/${result.data.categorySlug}`);
+  revalidatePath(`/products/${result.data.slug}`);
+  // If the slug changed, also refresh the old product URL.
+  if (slug !== result.data.slug) revalidatePath(`/products/${slug}`);
+
   return NextResponse.json({ ok: true, slug: result.data.slug });
 }
 
@@ -52,9 +62,18 @@ export async function DELETE(
   if (blocked) return blocked;
 
   const { slug } = await params;
+  // Look up the product first so we know which category page to refresh.
+  const existing = await getProductBySlug(slug);
   const write = await deleteProduct(slug);
   if (!write.ok) {
     return NextResponse.json({ ok: false, error: write.error }, { status: 400 });
   }
+
+  // Refresh listings so the removed item disappears.
+  revalidatePath("/");
+  revalidatePath("/categories");
+  if (existing) revalidatePath(`/categories/${existing.categorySlug}`);
+  revalidatePath(`/products/${slug}`);
+
   return NextResponse.json({ ok: true });
 }

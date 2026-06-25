@@ -8,35 +8,40 @@ import type { CatalogImage, Product } from "@/lib/catalog/types";
  * `images` is treated as the cover. `isFeatured` / `isNew` drive the home page
  * rails. Keep `slug` globally unique — it is the product URL (/products/[slug]).
  *
- * Images live under /public/images/<category>/. Because next/image renders
- * these with `fill`, the width/height below are advisory (used by the type and
- * any future fixed-size rendering), not layout-critical.
+ * Images live under /public/images/<group>/. Because next/image renders these
+ * with object-contain, the width/height below are advisory, not layout-critical.
  */
 
 const img = (
   src: string,
   alt: string,
-  width = 1200,
-  height = 1200,
+  width = 1600,
+  height = 1600,
 ): CatalogImage => ({ src, alt, width, height });
 
-const LR = "/images/living-room";
-const BR = "/images/bedroom";
+const SOFAS = "/images/sofas";
+const SEC = "/images/sectionals";
+const BEDS = "/images/beds";
+const TV = "/images/tv-units";
+
+// Shared lift-up storage feature shown on the upholstered beds.
+const storage = (): CatalogImage =>
+  img(`${BEDS}/storage-mechanism-1.webp`, "Lift-up slatted storage base, shown raised", 1800, 950);
 
 export const products: Product[] = [
   // ------------------------------- SOFAS ---------------------------------
   {
     slug: "cloud-sofa",
     name: "Cloud 3-Seater Sofa",
-    categorySlug: "living-room",
+    categorySlug: "sofas",
     subcategorySlug: "sofas",
     summary: "A deep, feather-soft three-seater you sink straight into.",
     description:
       "The Cloud lives up to its name — overstuffed, feather-wrapped cushions over a generous frame, dressed in a soft cream weave. The loose back pillows and rounded arms make it as relaxed as it looks, while a hidden hardwood frame keeps it built to last.",
     images: [
-      img(`${LR}/cloud-sofa-1.webp`, "Cloud three-seater sofa in cream fabric, front view"),
-      img(`${LR}/cloud-sofa-2.webp`, "Cloud three-seater sofa, angled view"),
-      img(`${LR}/cloud-sofa-3.webp`, "Cloud three-seater sofa, side detail"),
+      img(`${SOFAS}/cloud-1.webp`, "Cloud three-seater sofa in cream fabric, front view"),
+      img(`${SOFAS}/cloud-2.webp`, "Cloud three-seater sofa, angled view"),
+      img(`${SOFAS}/cloud-3.webp`, "Cloud three-seater sofa, side detail"),
     ],
     materials: [
       { name: "Soft cream performance weave" },
@@ -50,15 +55,15 @@ export const products: Product[] = [
   {
     slug: "oslo-sofa",
     name: "Oslo 3-Seater Sofa",
-    categorySlug: "living-room",
+    categorySlug: "sofas",
     subcategorySlug: "sofas",
     summary: "A tailored three-seater in textured oatmeal on a raised wood base.",
     description:
       "Oslo balances comfort and structure — plump bench cushions and a clean back line raised on a pale solid-wood base. Its softly textured oatmeal weave brings warmth to a restrained, contemporary silhouette that suits almost any room.",
     images: [
-      img(`${LR}/oslo-sofa-1.webp`, "Oslo three-seater sofa in oatmeal fabric, front view"),
-      img(`${LR}/oslo-sofa-2.webp`, "Oslo three-seater sofa, angled view"),
-      img(`${LR}/oslo-sofa-3.webp`, "Oslo three-seater sofa, side profile"),
+      img(`${SOFAS}/oslo-1.webp`, "Oslo three-seater sofa in oatmeal fabric, front view"),
+      img(`${SOFAS}/oslo-2.webp`, "Oslo three-seater sofa, angled view"),
+      img(`${SOFAS}/oslo-3.webp`, "Oslo three-seater sofa, side profile"),
     ],
     materials: [
       { name: "Textured oatmeal weave" },
@@ -70,86 +75,51 @@ export const products: Product[] = [
     isNew: true,
   },
   {
-    slug: "marlow-sofa",
-    name: "Marlow Slipcover Sofa",
-    categorySlug: "living-room",
+    slug: "palermo-sofa",
+    name: "Palermo Bouclé Sofa",
+    categorySlug: "sofas",
     subcategorySlug: "sofas",
-    summary: "A low, lounge-depth sofa with a relaxed, fully removable slipcover.",
+    summary: "A low, extra-deep sofa layered in soft bouclé cushions.",
     description:
-      "Marlow is built for slow afternoons — a low seat, extra depth, and a soft tailored slipcover that lifts off completely for cleaning. Scatter cushions in the same cloth complete an easy, understated look.",
+      "Palermo is built for lounging — a low, extra-deep seat piled with soft bouclé scatter and bolster cushions, set on a discreet dark plinth so the upholstery appears to float. An effortless, contemporary centrepiece.",
     images: [
-      img(`${LR}/marlow-sofa-1.webp`, "Marlow slipcover sofa in cream, front view"),
-      img(`${LR}/marlow-sofa-2.webp`, "Marlow slipcover sofa, wide view"),
-      img(`${LR}/marlow-sofa-3.webp`, "Marlow slipcover sofa, detail"),
+      img(`${SOFAS}/palermo-1.webp`, "Palermo bouclé sofa in pale grey, front view"),
+      img(`${SOFAS}/palermo-2.webp`, "Palermo bouclé sofa, angled view"),
+      img(`${SOFAS}/palermo-3.webp`, "Palermo bouclé sofa, detail"),
     ],
     materials: [
-      { name: "Removable washable slipcover" },
-      { name: "Down-blend cushions" },
-    ],
-    dimensions: { width: 260, depth: 110, height: 78, seatHeight: 42, unit: "cm" },
-    collection: "Atelier",
-  },
-  {
-    slug: "cascade-sofa",
-    name: "Cascade Lounge Sofa",
-    categorySlug: "living-room",
-    subcategorySlug: "sofas",
-    summary: "A deep, enveloping lounge sofa in a soft taupe slipcover.",
-    description:
-      "Cascade is all about comfort — deep seats, soft rolled arms, and a relaxed taupe slipcover that drapes into gentle folds. A pair of plump back cushions and matching scatters make it the easiest seat in the house.",
-    images: [
-      img(`${LR}/cascade-sofa-1.webp`, "Cascade lounge sofa in taupe slipcover, front view", 1800, 1800),
-    ],
-    materials: [
-      { name: "Soft taupe slipcover fabric" },
+      { name: "Soft pale-grey bouclé" },
       { name: "Feather-and-foam cushions" },
+      { name: "Recessed dark plinth" },
     ],
-    dimensions: { width: 250, depth: 112, height: 80, seatHeight: 44, unit: "cm" },
+    dimensions: { width: 250, depth: 115, height: 78, seatHeight: 42, unit: "cm" },
     collection: "Signature",
+    isNew: true,
   },
   {
-    slug: "avant-garde-sofa",
-    name: "Avant-Garde Sofa",
-    categorySlug: "living-room",
+    slug: "skyline-sofa",
+    name: "Skyline Sofa",
+    categorySlug: "sofas",
     subcategorySlug: "sofas",
-    summary: "A clean, contemporary sofa in light grey with a low profile.",
+    summary: "A crisp, tailored sofa in charcoal on a warm walnut base.",
     description:
-      "Avant-Garde keeps things crisp — a low back, neat track arms and a tight, modern seat in a light grey weave. It anchors a room without dominating it, and pairs effortlessly with the rest of the collection.",
+      "Skyline is all clean lines — slim track arms and tailored cushions in a charcoal weave, lifted on a warm walnut-stained base. Quietly modern, it anchors a room without weighing it down.",
     images: [
-      img(`${LR}/avant-garde-sofa-1.webp`, "Avant-Garde sofa in light grey fabric, front view", 1800, 1800),
+      img(`${SOFAS}/skyline-1.webp`, "Skyline three-seater sofa in charcoal on a walnut base, front view"),
+      img(`${SOFAS}/skyline-2.webp`, "Skyline sofa, two-seater configuration"),
+      img(`${SOFAS}/skyline-3.webp`, "Skyline sofa, alternate view"),
     ],
     materials: [
-      { name: "Light grey upholstery weave" },
+      { name: "Charcoal chenille weave" },
+      { name: "Walnut-stained solid wood base" },
       { name: "High-resilience foam" },
     ],
-    dimensions: { width: 220, depth: 95, height: 75, seatHeight: 43, unit: "cm" },
+    dimensions: { width: 230, depth: 95, height: 78, seatHeight: 44, unit: "cm" },
     collection: "Atelier",
     isNew: true,
   },
 
   // ----------------------------- SECTIONALS ------------------------------
-  {
-    slug: "halston-corner-sectional",
-    name: "Halston Corner Sectional",
-    categorySlug: "living-room",
-    subcategorySlug: "sectionals",
-    summary: "A generous L-shaped sectional that wraps a room in comfort.",
-    description:
-      "Halston is made for gathering — a roomy L-shaped configuration with deep seats and a soft cream weave, finished with a layer of mixed scatter cushions. It shapes an open-plan living space into a warm, inviting corner.",
-    images: [
-      img(`${LR}/halston-sectional-1.webp`, "Cream Halston L-shaped sectional styled in a bright panelled living room", 1200, 900),
-      img(`${LR}/halston-sectional-2.webp`, "Halston sectional, studio view", 1200, 900),
-      img(`${LR}/halston-sectional-3.webp`, "Halston sectional, alternate angle", 1200, 900),
-    ],
-    materials: [
-      { name: "Cream textured weave" },
-      { name: "Pocket-sprung seat cushions" },
-      { name: "Hardwood frame" },
-    ],
-    dimensions: { width: 320, depth: 250, height: 88, seatHeight: 46, unit: "cm" },
-    collection: "Signature",
-    isFeatured: true,
-  },
   {
     slug: "rivera-u-sectional",
     name: "Rivera U-Sectional",
@@ -159,9 +129,9 @@ export const products: Product[] = [
     description:
       "Rivera is a true centrepiece — a large modular U-shape that can be arranged to fit your room, with plush seats and a soft beige weave. Built in sections, it adapts as your space changes.",
     images: [
-      img(`${LR}/rivera-sectional-1.webp`, "Rivera beige U-shaped modular sectional, top view", 1200, 800),
-      img(`${LR}/rivera-sectional-2.jpg`, "Rivera U-sectional styled in a living room", 1200, 800),
-      img(`${LR}/rivera-sectional-3.webp`, "Rivera U-sectional, detail", 1200, 800),
+      img(`${SEC}/rivera-1.webp`, "Rivera beige U-shaped modular sectional, top view", 1200, 800),
+      img(`${SEC}/rivera-2.jpg`, "Rivera U-sectional styled in a living room", 1200, 800),
+      img(`${SEC}/rivera-3.webp`, "Rivera U-sectional, detail", 1200, 800),
     ],
     materials: [
       { name: "Soft beige weave" },
@@ -180,7 +150,7 @@ export const products: Product[] = [
     description:
       "Cosmo brings a lighter, more contemporary line — low modular blocks raised on slim chrome feet, with a deep chaise to stretch out on. Its mixed-tone weave and clean base keep a large piece feeling airy.",
     images: [
-      img(`${LR}/cosmo-sectional-1.webp`, "Cosmo modular sectional with chaise and chrome legs, front view", 1200, 800),
+      img(`${SEC}/cosmo-1.webp`, "Cosmo modular sectional with chaise and chrome legs, front view", 1200, 800),
     ],
     materials: [
       { name: "Mixed-tone upholstery weave" },
@@ -189,27 +159,95 @@ export const products: Product[] = [
     ],
     dimensions: { width: 340, depth: 170, height: 70, seatHeight: 42, unit: "cm" },
     collection: "Atelier",
-    isNew: true,
+  },
+  {
+    slug: "marlow-sectional",
+    name: "Marlow Lounge Sectional",
+    categorySlug: "living-room",
+    subcategorySlug: "sectionals",
+    summary: "A low, lounge-depth sectional with a relaxed slipcover.",
+    description:
+      "Marlow is built for slow afternoons — a low seat, extra depth, and a soft tailored slipcover that lifts off completely for cleaning. Scatter cushions in the same cloth complete an easy, understated look.",
+    images: [
+      img(`${SEC}/marlow-1.webp`, "Marlow slipcover lounge sectional in cream, front view"),
+      img(`${SEC}/marlow-2.webp`, "Marlow lounge sectional, wide view"),
+      img(`${SEC}/marlow-3.webp`, "Marlow lounge sectional, detail"),
+    ],
+    materials: [
+      { name: "Removable washable slipcover" },
+      { name: "Down-blend cushions" },
+    ],
+    dimensions: { width: 300, depth: 120, height: 78, seatHeight: 42, unit: "cm" },
+    collection: "Atelier",
+  },
+  {
+    slug: "cascade-sectional",
+    name: "Cascade Inclined Sectional",
+    categorySlug: "living-room",
+    subcategorySlug: "sectionals",
+    summary: "A soft, angled modular sectional with deep lounging seats.",
+    description:
+      "Cascade is pure comfort — generous, angled modules in a relaxed off-white linen, with overstuffed cushions and a low, grounded base. Its inclined layout gently wraps a seating area for easy, sink-in lounging.",
+    images: [
+      img(`${SEC}/cascade-1.webp`, "Cascade inclined modular sectional in off-white linen, angled view"),
+      img(`${SEC}/cascade-2.webp`, "Cascade sectional, alternate angle"),
+      img(`${SEC}/cascade-3.webp`, "Cascade sectional, detail"),
+    ],
+    materials: [
+      { name: "Relaxed off-white linen" },
+      { name: "Feather-blend cushions" },
+      { name: "Modular construction" },
+    ],
+    dimensions: { width: 330, depth: 180, height: 72, seatHeight: 42, unit: "cm" },
+    collection: "Signature",
+    isFeatured: true,
   },
 
   // ------------------------------- BEDS ----------------------------------
   {
-    slug: "hugo-bed",
-    name: "Hugo Upholstered Bed",
+    slug: "comfort-bed",
+    name: "Comfort Upholstered Bed",
     categorySlug: "bedroom",
     subcategorySlug: "beds",
-    summary: "A softly tailored bed with a gently curved, wrapped headboard.",
+    summary: "A softly padded bed with split cushioned headboard panels.",
     description:
-      "Hugo wraps the room in calm — a fully upholstered frame in a warm beige weave, topped with a soft, gently curved headboard that invites you to lean back. A low platform base keeps the proportions grounded and serene.",
+      "Comfort wraps the room in calm — a fully upholstered frame topped with soft, split headboard cushions you can lean into. Available with a lift-up storage base, it pairs deep comfort with everyday practicality.",
     images: [
-      img(`${BR}/hugo-bed-1.webp`, "Hugo upholstered bed in beige fabric with a curved headboard", 1800, 950),
+      img(`${BEDS}/comfort-1.webp`, "Comfort upholstered bed in blue fabric with split cushioned headboard"),
+      img(`${BEDS}/comfort-2.webp`, "Comfort bed, king configuration"),
+      img(`${BEDS}/comfort-3.webp`, "Comfort bed, alternate view"),
+      storage(),
     ],
     materials: [
-      { name: "Beige upholstery weave" },
-      { name: "Padded wrapped headboard" },
-      { name: "Solid timber frame" },
+      { name: "Soft upholstery weave" },
+      { name: "Padded split headboard" },
+      { name: "Optional lift-up storage base" },
     ],
     dimensions: { width: 196, depth: 215, height: 110, unit: "cm" },
+    collection: "Signature",
+    isNew: true,
+  },
+  {
+    slug: "haven-bed",
+    name: "Haven Upholstered Bed",
+    categorySlug: "bedroom",
+    subcategorySlug: "beds",
+    summary: "A low, enveloping bed with a soft wrapped headboard.",
+    description:
+      "Haven is quietly grounding — a low, fully upholstered frame in a warm taupe weave with a soft split headboard. Offered in several colourways and sizes, with an optional lift-up storage base.",
+    images: [
+      img(`${BEDS}/haven-1.webp`, "Haven upholstered bed in taupe, king size, front view"),
+      img(`${BEDS}/haven-2.webp`, "Haven bed in off-white, queen size"),
+      img(`${BEDS}/haven-3.webp`, "Haven bed in blue, queen size"),
+      img(`${BEDS}/haven-4-dimensions.webp`, "Haven bed dimensions diagram", 1800, 950),
+      storage(),
+    ],
+    materials: [
+      { name: "Warm taupe weave (multiple colourways)" },
+      { name: "Padded wrapped headboard" },
+      { name: "Optional lift-up storage base" },
+    ],
+    dimensions: { width: 196, depth: 215, height: 100, unit: "cm" },
     collection: "Signature",
     isFeatured: true,
   },
@@ -220,16 +258,42 @@ export const products: Product[] = [
     subcategorySlug: "beds",
     summary: "A rounded, fully-upholstered bed with a soft sculptural headboard.",
     description:
-      "Lora is quietly sculptural — a continuous, rounded headboard and base wrapped in a rich teal-blue weave. The soft curves and deep colour make the bed the centrepiece of the room, with no hard edges in sight.",
+      "Lora is quietly sculptural — a continuous, rounded headboard and base wrapped in a soft weave. The gentle curves make the bed the centrepiece of the room, with an optional lift-up storage base hidden beneath.",
     images: [
-      img(`${BR}/lora-bed-1.webp`, "Lora curved upholstered bed in teal-blue fabric", 1800, 950),
+      img(`${BEDS}/lora-1.webp`, "Lora curved upholstered bed, front view"),
+      img(`${BEDS}/lora-2.webp`, "Lora curved bed, alternate colourway"),
+      storage(),
     ],
     materials: [
-      { name: "Teal-blue upholstery weave" },
+      { name: "Soft upholstery weave" },
       { name: "Rounded wrapped headboard" },
-      { name: "Solid timber frame" },
+      { name: "Optional lift-up storage base" },
     ],
     dimensions: { width: 196, depth: 215, height: 105, unit: "cm" },
+    collection: "Atelier",
+    isNew: true,
+  },
+
+  // ------------------------------ TV UNITS -------------------------------
+  {
+    slug: "day-tv-unit",
+    name: "Day TV Unit",
+    categorySlug: "tv-units",
+    subcategorySlug: "tv-units",
+    summary: "A long, low push-to-open media console in solid wood veneers.",
+    description:
+      "Day is a clean, grain-forward media console — a long, low cabinet with handleless push-to-open fronts and generous storage for everything below the screen. Offered in three wood finishes to suit the room.",
+    images: [
+      img(`${TV}/day-natural-oak.webp`, "Day TV unit in natural oak", 1800, 700),
+      img(`${TV}/day-medium-walnut.webp`, "Day TV unit in medium walnut", 1800, 700),
+      img(`${TV}/day-black-oak.webp`, "Day TV unit in black oak", 1800, 700),
+    ],
+    materials: [
+      { name: "Natural oak, medium walnut or black oak veneer" },
+      { name: "Push-to-open fronts" },
+      { name: "Cable-managed storage" },
+    ],
+    dimensions: { width: 240, depth: 45, height: 40, unit: "cm" },
     collection: "Atelier",
     isNew: true,
   },

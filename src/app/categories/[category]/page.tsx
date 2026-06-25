@@ -15,6 +15,8 @@ interface CategoryPageProps {
   params: Promise<{ category: string }>;
 }
 
+export const revalidate = 300;
+
 // Pre-render every category at build time.
 export async function generateStaticParams() {
   const categories = await getCategories();

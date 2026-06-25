@@ -9,7 +9,7 @@ const config: Config = {
         ink: "#1a1815", // near-black warm charcoal — primary text
         bone: "#f6f3ee", // warm off-white — page background
         sand: "#e8e2d8", // soft neutral — borders/surfaces
-        clay: "#a8957d", // muted taupe — secondary text
+        clay: "#3b4f6e", // muted navy — secondary text (higher contrast than the old taupe)
         brass: "#9c7a4d", // restrained metallic accent (logo gold)
         navy: "#1f3a63", // deep brand navy (logo wordmark)
       },
